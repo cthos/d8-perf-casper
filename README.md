@@ -24,8 +24,5 @@ xhprof_enable(XHPROF_FLAGS_MEMORY);
 Assuming you have a drush alias to whatever you're trying to run this against:
 
 ```bash
-./run_scenario A @alias.env
+./run_scenario.sh A @alias.env
 ```
-
-### TODO
-Yeah, the scripts default to drupalvm.dev, working on that.
