@@ -1,1 +1,25 @@
 #! /bin/bash
+
+profile="standard"
+
+case $1 in
+  A)
+    ## Maybe sed would be better here.
+    pass=`drush @drupalvm.dev site-install $profile -y | grep password | cut -d ' ' -f 10`
+    echo "The password for admin is $pass"
+    casperjs A.js $pass
+    ;;
+  B)
+    drush @drupalvm.dev site-install $profile -y
+    drush @drupalvm.dev pm-uninstall page_cache -y
+    casperjs B.js
+    ;;
+  C)
+    drush @drupalvm.dev site-install $profile -y
+    casperjs C.js
+    ;;
+  D)
+    pass=`drush @drupalvm.dev site-install $profile -y | grep password | cut -d ' ' -f 10`
+    casperjs D.js $pass
+    
+esac
