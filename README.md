@@ -20,7 +20,7 @@ if (!empty($_GET['disable_opcache'])) {
 xhprof_enable(XHPROF_FLAGS_MEMORY);
 ```
 
-## Callin Stuff
+## Calling Stuff
 Assuming you have a drush alias to whatever you're trying to run this against:
 
 ```bash
