@@ -6,6 +6,17 @@ var casper = require('casper').create({
 // TODO: Toss this in a node module
 var url_base = casper.cli.has('uri') ? casper.cli.get('uri') : 'http://drupalvm.dev';
 
+function findXHProfLink() {
+  var link = this.evaluate(function () {
+    var xhprofLink = document.querySelector('a#xhprof-run-name');
+    return xhprofLink.href;
+  });
+
+  if (link) {
+    this.echo(link);
+  }
+}
+
 var login = function () {
   this.fill('form[id="user-login-form"]', {
     'name' : 'admin',
@@ -21,6 +32,8 @@ casper.thenOpen(url_base + '/admin/modules', function () {
   }, true);
 });
 
-casper.then(function () {});
+casper.then(function () {
+  findXHProfLink.call(this);
+});
 
 casper.run();
