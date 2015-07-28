@@ -4,15 +4,16 @@ profile="standard"
 sitealias=$2
 
 if [ -z "$sitealias" ];
+then
   sitealias="@drupalvm.dev"
 fi
 
 
 case $1 in
   A)
-    echo "Running site-install on $2"
+    echo "Running site-install on $sitealias"
     ## Maybe sed would be better here.
-    pass=`drush @drupalvm.dev site-install $profile -y | grep password | cut -d ' ' -f 10`
+    pass=`drush $sitealias site-install $profile -y | grep password | cut -d ' ' -f 10`
     echo "The password for admin is $pass"
     casperjs A.js $pass
     ;;

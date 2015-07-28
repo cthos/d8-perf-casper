@@ -1,10 +1,6 @@
-var casper = require('casper').create({
-  verbose: true,
-  logLevel: "debug"
-});
-
-// TODO: Toss this in a node module
-var url_base = casper.cli.has('uri') ? casper.cli.get('uri') : 'http://drupalvm.dev';
+var casper = require('casper').create();
+var helpy = require('./dohelpy');
+var url_base = helpy.getSiteUrl();
 
 var login = function () {
   this.fill('form[id="user-login-form"]', {
@@ -13,7 +9,7 @@ var login = function () {
   }, true);
 };
 
-casper.start(url_base, login);
+casper.start(url_base, helpy.login('test', 'test'));
 
 casper.then(function () {
   // TODO: Is there a better way to do this?
@@ -27,9 +23,17 @@ casper.then(function () {
 
 casper.thenOpen(url_base, function () {});
 casper.thenOpen(url_base, function () {});
-casper.thenOpen(url_base + '/node/1', function () {});
-casper.thenOpen(url_base + '/node/1', function () {});
-casper.thenOpen(url_base + '/node/2', function () {});
-casper.thenOpen(url_base + '/node/2', function () {});
+casper.thenOpen(url_base + '/node/1', function () {
+  helpy.findXHProfLink.call(this);
+});
+casper.thenOpen(url_base + '/node/1', function () {
+  helpy.findXHProfLink.call(this);
+});
+casper.thenOpen(url_base + '/node/2', function () {
+  helpy.findXHProfLink.call(this);
+});
+casper.thenOpen(url_base + '/node/2', function () {
+  helpy.findXHProfLink.call(this);
+});
 
 casper.run();

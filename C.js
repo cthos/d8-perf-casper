@@ -1,12 +1,11 @@
-var casper = require('casper').create({
-  verbose: true,
-  logLevel: "debug"
-});
-
-var url_base = casper.cli.has('uri') ? casper.cli.get('uri') : 'http://drupalvm.dev';
+var casper = require('casper').create();
+var helpy = require('./dohelpy');
+var url_base = helpy.getSiteUrl();
 
 casper.start(url_base, function () {});
 casper.thenOpen(url_base, function () {});
-casper.thenOpen(url_base, function () {});
+casper.thenOpen(url_base, function () {
+  helpy.findXHProfLink.call(this);
+});
 
 casper.run();

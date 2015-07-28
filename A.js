@@ -1,30 +1,9 @@
-var casper = require('casper').create({
-  verbose: true,
-  logLevel: "debug"
-});
+var casper = require('casper').create();
 
-// TODO: Toss this in a node module
-var url_base = casper.cli.has('uri') ? casper.cli.get('uri') : 'http://drupalvm.dev';
+var helpy = require('./dohelpy');
+var url_base = helpy.getSiteUrl();
 
-function findXHProfLink() {
-  var link = this.evaluate(function () {
-    var xhprofLink = document.querySelector('a#xhprof-run-name');
-    return xhprofLink.href;
-  });
-
-  if (link) {
-    this.echo(link);
-  }
-}
-
-var login = function () {
-  this.fill('form[id="user-login-form"]', {
-    'name' : 'admin',
-    'pass' : casper.cli.get(0) // TODO: Config and shit?
-  }, true);
-};
-
-casper.start(url_base, login);
+casper.start(url_base, helpy.login('admin', casper.cli.get(0)));
 
 casper.thenOpen(url_base + '/admin/modules', function () {
   this.fill('form[id="system-modules"]', {
@@ -33,7 +12,7 @@ casper.thenOpen(url_base + '/admin/modules', function () {
 });
 
 casper.then(function () {
-  findXHProfLink.call(this);
+  helpy.findXHProfLink.call(this);
 });
 
 casper.run();

@@ -1,18 +1,9 @@
-var casper = require('casper').create({
-  verbose: true,
-  logLevel: "debug"
-});
+var casper = require('casper').create();
+var helpy = require('./dohelpy')
 
-var url_base = casper.cli.has('uri') ? casper.cli.get('uri') : 'http://drupalvm.dev';
+var url_base = helpy.getSiteUrl();
 
-var login = function () {
-  this.fill('form[id="user-login-form"]', {
-    'name' : 'admin',
-    'pass' : casper.cli.get(0) // TODO: Config and shit?
-  }, true);
-};
-
-casper.start(url_base, login);
+casper.start(url_base, helpy.login('admin', casper.cli.get(0)));
 
 casper.thenOpen(url_base + '/node/add/page', function () {
   this.fill('form[id="node-page-form"]', {
