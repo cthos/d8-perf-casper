@@ -1,3 +1,6 @@
+## Why?
+Please see https://www.drupal.org/node/2497185
+
 ## Configuration
 
 Currently you have to add the following to index.php in the Drupal install:
