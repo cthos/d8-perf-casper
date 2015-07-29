@@ -5,7 +5,7 @@ casper.start(helpy.buildUrl(''), function () {});
 casper.thenOpen(helpy.buildUrl(''), function () {});
 casper.thenOpen(helpy.buildUrl('', {
   "xhprof_on" : "1"
-}), function () {
+}), function (response) {
   helpy.findXHProfLink.call(this);
 });
 

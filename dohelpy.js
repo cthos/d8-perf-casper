@@ -1,7 +1,7 @@
 var helpy = {
   findXHProfLink : function () {
     var link = this.evaluate(function () {
-      var xhprofLink = document.querySelector('a#xhprof-run-name');
+      var xhprofLink = document.querySelector('a#xhprof-profiler-output');
       return xhprofLink.href;
     });
 
@@ -23,14 +23,25 @@ var helpy = {
     return casper.cli.has('uri') ? casper.cli.get('uri') : 'http://drupalvm.dev';
   },
 
-  buildUrl : function (path, query_params) {
+  buildUrl : function (path, options) {
     var urlBase = this.getSiteUrl();
     var query = [];
 
-    if (query_params) {
-      for (var key in query_params) {
-        query.push(key + "=" + query_params[key]);
-      }
+    if (!path) {
+      path = '/';
+    }
+
+    if (!options) {
+      options = {};
+    }
+
+    if (options.disable_opcache) {
+      query.push('disable_opcache=1');
+    }
+
+    if (options.xhprof_on) {
+      query.push('url=' + path);
+      path = "/index-perf.php";
     }
 
     return urlBase + path + "?" + query.join("&");
