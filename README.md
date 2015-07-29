@@ -3,9 +3,13 @@ Please see https://www.drupal.org/node/2497185
 
 ## Configuration
 
-Currently you have to add the following to index.php in the Drupal install:
+Place this in a php file somewhere and make sure apache/nginx/fpm (whatever you're using) has read access to it.
+
+Then set the php.ini `auto_prepend_file` directive to point to this file.
 
 ```php
+<?php
+
 if (!empty($_GET['disable_opcache'])) {
   ini_set('opcache.enable', 0);
 }
