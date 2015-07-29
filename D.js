@@ -27,7 +27,8 @@ casper.thenOpen(helpy.buildUrl('/admin/people/create'), function () {
     'name' : 'test',
     'pass[pass1]' : 'test',
     'pass[pass2]' : 'test'
-  }, true);
+  });
+  this.click('input[type="submit"][value="Create new account"]');
 });
 
 casper.run();

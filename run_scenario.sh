@@ -28,7 +28,10 @@ case $1 in
     casperjs C.js --uri=$siteuri
     ;;
   D)
-    pass=`drush @drupalvm.dev site-install $profile -y | grep password | cut -d ' ' -f 10`
+    echo "Running site-install on $sitealias"
+    ## Maybe sed would be better here.
+    pass=`drush $sitealias site-install $profile -y | grep password | cut -d ' ' -f 10`
+    echo "The password for admin is $pass"
     casperjs D.js $pass
     casperjs D2.js --alias=@drupalvm.dev --uri=$siteuri
     ;;
