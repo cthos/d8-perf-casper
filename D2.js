@@ -1,15 +1,7 @@
 var casper = require('casper').create();
 var helpy = require('./dohelpy');
-var url_base = helpy.getSiteUrl();
 
-var login = function () {
-  this.fill('form[id="user-login-form"]', {
-    'name' : 'test',
-    'pass' : 'test'
-  }, true);
-};
-
-casper.start(url_base, helpy.login('test', 'test'));
+casper.start(helpy.buildUrl(''), helpy.login('test', 'test'));
 
 casper.then(function () {
   // TODO: Is there a better way to do this?
@@ -21,18 +13,34 @@ casper.then(function () {
   });
 }).wait(10000); // Wait a bit for the drush command to complete.
 
-casper.thenOpen(url_base, function () {});
-casper.thenOpen(url_base, function () {});
-casper.thenOpen(url_base + '/node/1', function () {
+casper.thenOpen(helpy.buildUrl('', {
+  "xhprof_on" : "1"
+}), function (response) {
   helpy.findXHProfLink.call(this);
 });
-casper.thenOpen(url_base + '/node/1', function () {
+casper.thenOpen(helpy.buildUrl('', {
+  "xhprof_on" : "1"
+}), function (response) {
   helpy.findXHProfLink.call(this);
 });
-casper.thenOpen(url_base + '/node/2', function () {
+casper.thenOpen(helpy.buildUrl('/node/1', {
+  "xhprof_on" : "1"
+}), function (response) {
   helpy.findXHProfLink.call(this);
 });
-casper.thenOpen(url_base + '/node/2', function () {
+casper.thenOpen(helpy.buildUrl('/node/1', {
+  "xhprof_on" : "1"
+}), function (response) {
+  helpy.findXHProfLink.call(this);
+});
+casper.thenOpen(helpy.buildUrl('/node/2', {
+  "xhprof_on" : "1"
+}), function (response) {
+  helpy.findXHProfLink.call(this);
+});
+casper.thenOpen(helpy.buildUrl('/node/2', {
+  "xhprof_on" : "1"
+}), function (response) {
   helpy.findXHProfLink.call(this);
 });
 

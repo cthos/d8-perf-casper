@@ -21,6 +21,19 @@ var helpy = {
 
   getSiteUrl : function () {
     return casper.cli.has('uri') ? casper.cli.get('uri') : 'http://drupalvm.dev';
+  },
+
+  buildUrl : function (path, query_params) {
+    var urlBase = this.getSiteUrl();
+    var query = [];
+
+    if (query_params) {
+      for (var key in query_params) {
+        query.push(key + "=" + query_params[key]);
+      }
+    }
+
+    return urlBase + path + "?" + query.join("&");
   }
 };
 
