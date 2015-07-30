@@ -17,3 +17,7 @@ Assuming you have a drush alias to whatever you're trying to run this against:
 ```bash
 ./run_scenario.sh A @alias.env
 ```
+
+## TODO
+
+* Scenario A2 does not presently log immediately after module install, due to the form's redirection back to /admin/modules instead of passing through index-perf.php.

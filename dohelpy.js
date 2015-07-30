@@ -10,6 +10,15 @@ var helpy = {
     }
   },
 
+  adjustFormUrls : function () {
+    this.evaluate(function () {
+      var forms = document.querySelectorAll('form');
+      for (var i = 0, len = forms.length; i < len; i++) {
+        forms[i].action = '/index-perf.php?url=' + escape(forms[i].action);
+      }
+    });
+  },
+
   login : function (name, pass) {
     return function () {
       this.fill('form[id="user-login-form"]', {
@@ -31,6 +40,8 @@ var helpy = {
       path = '/';
     }
 
+    query.push('url=' + path);
+
     if (!options) {
       options = {};
     }
@@ -38,13 +49,11 @@ var helpy = {
     if (options.disable_opcache) {
       query.push('disable_opcache=1');
     }
-
-    if (options.xhprof_on) {
-      query.push('url=' + path);
-      path = "/index-perf.php";
+    if (!options.xhprof_on) {
+      query.push('disable_xhprof=1');
     }
 
-    return urlBase + path + "?" + query.join("&");
+    return urlBase + '/index-perf.php' + "?" + query.join("&");
   }
 };
 

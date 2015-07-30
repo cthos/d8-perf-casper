@@ -19,12 +19,12 @@ case $1 in
     casperjs A.js $pass --uri=$siteuri
     ;;
   B)
-    drush @drupalvm.dev site-install $profile -y
-    drush @drupalvm.dev pm-uninstall page_cache -y
+    drush $sitealias site-install $profile -y
+    drush $sitealias pm-uninstall page_cache -y
     casperjs B.js --uri=$siteuri
     ;;
   C)
-    drush @drupalvm.dev site-install $profile -y
+    drush $sitealias site-install $profile -y
     casperjs C.js --uri=$siteuri
     ;;
   D)

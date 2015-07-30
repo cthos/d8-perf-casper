@@ -1,4 +1,4 @@
-var casper = require('casper').create();
+var casper = require('casper').create({verbose:true, logLevel:"debug"});
 
 var helpy = require('./dohelpy');
 var url_base = helpy.getSiteUrl();
@@ -8,9 +8,10 @@ casper.start(helpy.buildUrl('', {
 }), helpy.login('admin', casper.cli.get(0)));
 
 casper.thenOpen(helpy.buildUrl('/admin/modules', {
-  "disable_opcache" : "1",
-  "xhprof_on" : "1"
+  "disable_opcache" : "1"
 }), function () {
+  helpy.adjustFormUrls.call(this);
+
   this.fill('form[id="system-modules"]', {
     'modules[Core][action][enable]' : '1'
   }, true);
