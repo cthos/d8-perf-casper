@@ -31,6 +31,6 @@ case $1 in
     ## Maybe sed would be better here.
     drush $sitealias site-install $profile -y --account-pass=admintest
     casperjs D.js "admintest"
-    casperjs D2.js --alias=@drupalvm.dev --uri=$siteuri
+    casperjs D2.js --alias=$sitealias --uri=$siteuri
     ;;
 esac
