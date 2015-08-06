@@ -15,7 +15,7 @@ Download and install [xhprof-kit](https://github.com/LionsAd/xhprof-kit). Follow
 Assuming you have a drush alias to whatever you're trying to run this against:
 
 ```bash
-./run_scenario.sh A @alias.env
+./run_scenario.sh A @alias
 ```
 
 ## TODO
