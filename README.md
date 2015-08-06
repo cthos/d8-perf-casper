@@ -20,4 +20,5 @@ Assuming you have a drush alias to whatever you're trying to run this against:
 
 ## TODO
 
+* Scenario A1 does not present you a link because it's not rendering a page to capture. It'll be the most recent run in `/xhprof-kit/xhprof/xhprof_html/index.php`
 * Scenario A2 does not presently log immediately after module install, due to the form's redirection back to /admin/modules instead of passing through index-perf.php.
