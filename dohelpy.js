@@ -1,4 +1,6 @@
 var helpy = {
+  disabledRedirects : [],
+  stopIds : [],
   findXHProfLink : function () {
     var link = this.evaluate(function () {
       var xhprofLink = document.querySelector('a#xhprof-profiler-output');
@@ -15,6 +17,44 @@ var helpy = {
       var forms = document.querySelectorAll('form');
       for (var i = 0, len = forms.length; i < len; i++) {
         forms[i].action = '/index-perf.php?url=' + escape(forms[i].action);
+      }
+    });
+  },
+
+  disableRedirectForUrl: function (url, casper) {
+    if (!this.disabledRedirects.length) {
+      this.setupRedirectListeners(casper);
+    }
+
+    this.disabledRedirects.push(url);
+  },
+
+  setupRedirectListeners : function (casper) {
+    var helpy = this;
+
+    casper.on('resource.requested', function (data, net) {
+      if (helpy.stopIds.indexOf(data.url) > -1) {
+        console.log("Aborting " + data.url);
+        net.abort();
+      }
+    });
+
+    casper.on("resource.received", function(response) {
+      if (response.redirectURL.indexOf('index-perf.php') > -1) {
+        return;
+      }
+      // Only redirects?
+      if (response.status !== 303 && response.status !== 302 && response.status !== 301) {
+        return;
+      }
+
+      for (var x = 0, len = helpy.disabledRedirects.length; x < len; x++) {
+        if (response.redirectURL.indexOf(helpy.disabledRedirects[x]) === -1) {
+          continue;
+        }
+
+        console.log("adding id to stopIds: " + response.redirectURL);
+        helpy.stopIds.push(response.redirectURL);
       }
     });
   },

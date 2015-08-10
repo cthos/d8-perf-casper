@@ -1,7 +1,11 @@
 var casper = require('casper').create({verbose:true, logLevel:"debug"});
 
+var stopIds = [];
+
 var helpy = require('./dohelpy');
-var url_base = helpy.getSiteUrl();
+
+// Disable the redirect after /admin/modules
+helpy.disableRedirectForUrl('/admin/modules', casper);
 
 casper.start(helpy.buildUrl('', {
   "disable_opcache" : "1"
@@ -18,6 +22,13 @@ casper.thenOpen(helpy.buildUrl('/admin/modules', {
 });
 
 casper.then(function () {
+  helpy.findXHProfLink.call(this);
+});
+
+casper.thenOpen(helpy.buildUrl('/admin/modules', {
+  "disable_opcache" : "1",
+  "xhprof_on" : true
+}), function () {
   helpy.findXHProfLink.call(this);
 });
 
