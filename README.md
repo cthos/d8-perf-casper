@@ -3,7 +3,7 @@ Please see https://www.drupal.org/node/2497185
 
 ## Requirements
 
-* [CasperJS](http://casperjs.readthedocs.org/en/latest/installation.html)
+* [CasperJS](http://casperjs.readthedocs.org/en/latest/installation.html) [On OSX, install from Git or NPM, not Homebrew](https://www.drupal.org/node/2497185#comment-10206465).
 * [xhprof-kit](https://github.com/LionsAd/xhprof-kit)
 * Drupal 8 environment of your choosing.
 
