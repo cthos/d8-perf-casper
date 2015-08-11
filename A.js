@@ -1,6 +1,7 @@
-var casper = require('casper').create({verbose:true, logLevel:"debug"});
+var casper = require('casper').create();
 
 var stopIds = [];
+var nextLink;
 
 var helpy = require('./dohelpy');
 
@@ -29,7 +30,10 @@ casper.thenOpen(helpy.buildUrl('/admin/modules', {
   "disable_opcache" : "1",
   "xhprof_on" : true
 }), function () {
-  helpy.findXHProfLink.call(this);
+  nextLink = helpy.findXHProfLink.call(this);
+  this.thenOpen(nextLink, function () {
+    helpy.getFunctionsAndMemoryFromXHProf.call(this);
+  });
 });
 
 casper.run();

@@ -16,32 +16,50 @@ casper.then(function () {
 casper.thenOpen(helpy.buildUrl('', {
   "xhprof_on" : "1"
 }), function (response) {
-  helpy.findXHProfLink.call(this);
+  nextLink = helpy.findXHProfLink.call(this);
+  this.thenOpen(nextLink, function () {
+    helpy.getFunctionsAndMemoryFromXHProf.call(this);
+  });
 });
 casper.thenOpen(helpy.buildUrl('', {
   "xhprof_on" : "1"
 }), function (response) {
-  helpy.findXHProfLink.call(this);
+  nextLink = helpy.findXHProfLink.call(this);
+  this.thenOpen(nextLink, function () {
+    helpy.getFunctionsAndMemoryFromXHProf.call(this);
+  });
 });
 casper.thenOpen(helpy.buildUrl('/node/1', {
   "xhprof_on" : "1"
 }), function (response) {
-  helpy.findXHProfLink.call(this);
+  nextLink = helpy.findXHProfLink.call(this);
+  this.thenOpen(nextLink, function () {
+    helpy.getFunctionsAndMemoryFromXHProf.call(this);
+  });
 });
 casper.thenOpen(helpy.buildUrl('/node/1', {
   "xhprof_on" : "1"
 }), function (response) {
-  helpy.findXHProfLink.call(this);
+  nextLink = helpy.findXHProfLink.call(this);
+  this.thenOpen(nextLink, function () {
+    helpy.getFunctionsAndMemoryFromXHProf.call(this);
+  });
 });
 casper.thenOpen(helpy.buildUrl('/node/2', {
   "xhprof_on" : "1"
 }), function (response) {
-  helpy.findXHProfLink.call(this);
+  nextLink = helpy.findXHProfLink.call(this);
+  this.thenOpen(nextLink, function () {
+    helpy.getFunctionsAndMemoryFromXHProf.call(this);
+  });
 });
 casper.thenOpen(helpy.buildUrl('/node/2', {
   "xhprof_on" : "1"
 }), function (response) {
-  helpy.findXHProfLink.call(this);
+  nextLink = helpy.findXHProfLink.call(this);
+  this.thenOpen(nextLink, function () {
+    helpy.getFunctionsAndMemoryFromXHProf.call(this);
+  });
 });
 
 casper.run();

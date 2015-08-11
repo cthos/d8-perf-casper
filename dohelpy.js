@@ -10,6 +10,28 @@ var helpy = {
     if (link) {
       this.echo(link);
     }
+
+    return link;
+  },
+
+  getFunctionsAndMemoryFromXHProf : function () {
+    var functionCalls = this.evaluate(function () {
+      var functionCalls = document.querySelectorAll('table td')[7];
+      return functionCalls.innerHTML;
+    });
+
+    var memoryUsed = this.evaluate(function () {
+      var memory = document.querySelectorAll('table td')[5];
+      return memory.innerHTML;
+    });
+
+    this.echo("Function calls: " + functionCalls);
+    this.echo("Memory Used: " + memoryUsed);
+
+    return {
+      "memoryUsed" : memoryUsed,
+      "functionCalls" : functionCalls
+    }
   },
 
   adjustFormUrls : function () {
