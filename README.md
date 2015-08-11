@@ -17,6 +17,28 @@ Assuming you have a drush alias to whatever you're trying to run this against:
 ```bash
 ./run_scenario.sh A @alias
 ```
+## Docker Integration
+
+The `Dockerfile` provides a basic set of instructions to build a docker container which contains node, casperjs, and drush.
+
+### Building the container
+
+The scripts assume you'll be using a drush alias in order to perform the actions against the D8 site, but it needs those to be inside the container.
+
+Place any required drush alias files in the drush folder before building the container. Look at the [drush folder's readme](drush/readme.md) for instructions on extra parameters you might need to add.
+
+Run `docker build -t "cthos/d8-perf-casper" .` to then build the container.
+
+### Running the container
+
+`docker run -i -t cthos/d8-perf-casper A @drupalvm.drupalvm.dev`
+
+#### If you're using drupalvm
+
+You might need to mount the insecure_private_key as well as add the virtual host to the hosts file (assuming it's not accessible from the web).
+
+`docker run --add-host="drupalvm.dev:192.168.88.88" -v /Users/cthos/.vagrant.d:/root/.vagrant.d -i -t cthos/d8-perf-casper A @drupalvm.drupalvm.dev`
+
 
 ## TODO
 
