@@ -8,11 +8,11 @@ then
   sitealias="@drupalvm.dev"
 fi
 
-siteuri=`drush $sitealias ev 'global $base_url; echo $base_url;'`
+siteuri=`drush $sitealias ev 'global $base_url; echo $base_url;' | tr -d '[[:space:]]'`
 
 case $1 in
   A)
-    echo "Running site-install on $sitealias"
+    echo "Running site-install on $sitealias - $siteuri"
     ## Maybe sed would be better here.
     drush $sitealias site-install $profile -y --account-pass=admintest
     casperjs A.js "admintest" --uri=$siteuri
