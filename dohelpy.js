@@ -96,7 +96,6 @@ var helpy = {
 
   buildUrl : function (path, options) {
     var urlBase = this.getSiteUrl();
-    console.log(urlBase);
     var query = [];
 
     if (!path) {
