@@ -6,7 +6,7 @@ casper.start(helpy.buildUrl(''), helpy.login('admin', casper.cli.get(0)));
 casper.thenOpen(helpy.buildUrl('/node/add/page'), function () {
   this.fill('form[id="node-page-form"]', {
     'title[0][value]' : 'Test',
-    'path[0][alias]' : 'test'
+    'path[0][alias]' : '/test'
   }, true);
 });
 
@@ -15,7 +15,7 @@ casper.then(function () {});
 casper.thenOpen(helpy.buildUrl('/node/add/article'), function () {
   this.fill('form[id="node-article-form"]', {
     'title[0][value]' : 'Test 2',
-    'path[0][alias]' : 'test2'
+    'path[0][alias]' : '/test2'
   });
   this.click('input[type="submit"][value="Save and publish"]');
 });

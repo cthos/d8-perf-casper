@@ -28,10 +28,26 @@ var helpy = {
     this.echo("Function calls: " + functionCalls);
     this.echo("Memory Used: " + memoryUsed);
 
+    var nextLink = this.getCurrentUrl();
+    nextLink += "&symbol=PDOStatement::execute";
+    this.thenOpen(nextLink, function () {
+      // NESTING LEVEL IS GETTING OUT OF HAND.
+      helpy.getPDOExecuteFromXHProf.call(this);
+    });
+
     return {
       "memoryUsed" : memoryUsed,
       "functionCalls" : functionCalls
     }
+  },
+
+  getPDOExecuteFromXHProf : function () {
+    var PDOCalls = this.evaluate(function () {
+      var PDOCalls = document.querySelectorAll('table td')[2];
+      return PDOCalls.innerHTML;
+    });
+
+    this.echo("PDO calls: " + PDOCalls);
   },
 
   adjustFormUrls : function () {
